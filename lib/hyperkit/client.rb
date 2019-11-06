@@ -29,6 +29,7 @@ require 'hyperkit/client/images'
 require 'hyperkit/client/networks'
 require 'hyperkit/client/operations'
 require 'hyperkit/client/profiles'
+require 'hyperkit/client/storage_pools'
 
 module Hyperkit
 
@@ -39,6 +40,7 @@ module Hyperkit
   # @see Hyperkit::Client::Networks
   # @see Hyperkit::Client::Operations
   # @see Hyperkit::Client::Profiles
+  # @see Hyperkit::Client::StoragePools
   class Client
 
     include Hyperkit::Configurable
@@ -50,6 +52,7 @@ module Hyperkit
     include Hyperkit::Client::Networks
     include Hyperkit::Client::Operations
     include Hyperkit::Client::Profiles
+    include Hyperkit::Client::StoragePools
 
     # Initialize a new Hyperkit client
     #
