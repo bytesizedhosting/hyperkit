@@ -59,10 +59,15 @@ module Hyperkit
         delete(volume_path(storage_pool, type, volume)).metadata
       end
 
+      def rename_volume(storage_pool, type, volume, config={})
+        post(volume_path(storage_pool, type, volume), config)
+      end
+
       def update_volume(storage_pool, type, volume, config={})
         old_config = volume(storage_pool, type, volume).to_h
-        old_config[:config] = old_config[:config].merge(config[:config])
+        old_config[:config] = old_config[:config].merge(config)
         update_config = old_config
+
         put(volume_path(storage_pool, type, volume), update_config)
       end
 
