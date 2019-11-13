@@ -151,7 +151,12 @@ module Hyperkit
           opts = local_image_container_options(name, source, opts)
         end
 
-        response = post(containers_path, opts).metadata
+        if options[:target]
+          response = post(target_containers_path(options[:target]), opts).metadata
+        else
+          response = post(containers_path, opts).metadata
+        end
+
         handle_async(response, options[:sync])
       end
 
@@ -1028,6 +1033,10 @@ module Hyperkit
 
       def containers_path
         "/1.0/containers"
+      end
+
+      def target_containers_path(target)
+        "/1.0/containers?target=#{target}"
       end
 
       def extract_container_options(name, options)
