@@ -50,9 +50,7 @@ module Hyperkit
       end
 
       def create_volume(storage_pool, volume, options={})
-        opts = options
-        options[:name] = volume
-        post(new_volume_path(storage_pool), opts)
+        post(new_volume_path(storage_pool), options.reverse_merge(name: volume))
       end
 
       def delete_volume(storage_pool, type, volume)
@@ -69,6 +67,10 @@ module Hyperkit
         update_config = old_config
 
         put(volume_path(storage_pool, type, volume), update_config)
+      end
+
+      def create_volume_snapshot(storage_pool, volume_name, snapshot_name)
+        post( new_snapshot_volume_path(storage_pool, volume_name), {name: snapshot_name})
       end
 
       private
@@ -88,6 +90,10 @@ module Hyperkit
 
       def new_volume_path(storage_pool)
         File.join(storage_pools_path, storage_pool, "volumes")
+      end
+
+      def new_snapshot_volume_path(storage_pool, volume_name, volume_type = "custom")
+        File.join(storage_pools_path, storage_pool, "volumes", volume_type, volume_name, "snapshots")
       end
 
       #Storage pools
