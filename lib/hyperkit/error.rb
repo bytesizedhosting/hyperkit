@@ -147,7 +147,7 @@ module Hyperkit
     def response_error
       err = nil
 
-      if data.is_a?(Hash) && data[:error]
+      if data.is_a?(Hash) && data[:error].present?
         err = data[:error]
       elsif data.is_a?(Hash) && data[:metadata]
         err = data[:metadata][:err]
