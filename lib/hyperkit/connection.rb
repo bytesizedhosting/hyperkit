@@ -158,6 +158,7 @@ module Hyperkit
       conn_opts = {}
       conn_opts[:builder] = @middleware if @middleware
       conn_opts[:proxy] = @proxy if @proxy
+      conn_opts[:request] = {timeout: 3600} # LXD operations might take a long time, only timeout if it is really necessary.
 
       conn_opts[:ssl] = {
         verify: verify_ssl
